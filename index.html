@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sophia Lab - 属性神殿の旅</title>
+    
+    <style>
+        /* 外部ファイルに一切頼らない最小限かつ高品質なクリーンCSS */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #03050c;
+            color: #e2e8f0;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* アプリ風縦長コンテナ（PCではスマホサイズ、スマホではフルスクリーン） */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            position: relative;
+            background-color: #05070f;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+
+        /* 共通：なめらかなページフェード切り替え */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+        .page-hidden {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.97);
+        }
+
+        /* ================= TOP PAGE STYLE ================= */
+        /* 背景画像を全画面表示（神殿入口。top.png） */
+        .top-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('top.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* 扉共通：完全透明なタップターゲット領域 */
+        .door-target-top {
+            position: absolute;
+            top: 26%;
+            width: 43%;
+            height: 42%;
+            z-index: 10;
+            cursor: pointer;
+            border-radius: 100px 100px 0 0;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            transition: transform 0.15s ease;
+        }
+        .door-target-top:active {
+            transform: scale(0.98);
+        }
+
+        /* 左の扉のタップ領域（top.png画像位置に合わせる） */
+        .door-left-top {
+            left: 4%;
+        }
+        /* 右の扉のタップ領域（top.png画像位置に合わせる） */
+        .door-right-top {
+            right: 4%;
+        }
+
+        /* ================= SHINDEN TOP PAGE STYLE ================= */
+        /* 背景画像を全画面表示（属性神殿.png） */
+        .shinden-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('属性神殿.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* 画像中央の「🔮 診断開始」球体に完全に重なる、透明なタップターゲット領域 */
+        .door-target {
+            position: absolute;
+            top: 42%;
+            left: 36%;
+            width: 28%;
+            height: 12%;
+            z-index: 10;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            transition: transform 0.15s ease;
+        }
+        
+        /* タップした時にのみ、吸い込まれるような軽い感触をフィードバック */
+        .door-target:active {
+            transform: scale(0.92);
+        }
+
+        /* ================= INNER PAGES STYLE ================= */
+        /* 各インナーページのスクロールレイアウト */
+        .inner-page {
+            padding: 24px 20px;
+            background-color: #060813;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* 幻想的な神殿のサブ背景（画像を薄く配置して世界観を継承） */
+        .inner-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('属性神殿.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.04;
+            filter: blur(8px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .inner-header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+            z-index: 10;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #718096;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 8px 0;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: #ffffff;
+        }
+        .inner-content {
+            margin: auto 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            z-index: 10;
+        }
+
+        .inner-title {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.15em;
+            line-height: 1.4;
+            color: #fbbf24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+        }
+
+        .inner-desc {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 320px;
+            word-break: break-all;
+        }
+        
+        /* カードデザイン */
+        .info-card {
+            background-color: rgba(10, 15, 30, 0.85);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 18px;
+            width: 100%;
+            max-width: 340px;
+            text-align: left;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .info-card-title {
+            color: #fbbf24;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .info-card-text {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        /* 汎用的な神殿風ゴールドボタン */
+        .shinden-btn {
+            background: linear-gradient(135deg, #a16207 0%, #d97706 100%);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.15em;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.25);
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 280px;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+        .shinden-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 5px rgba(217, 119, 6, 0.15);
+        }
+
+        /* ================= QUIZ STYLE ================= */
+        .quiz-indicator-container {
+            width: 100%;
+            max-width: 320px;
+            background-color: #1e293b;
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .quiz-indicator-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            width: 33.3%;
+            transition: width 0.3s ease;
+        }
+        .quiz-step-text {
+            font-size: 11px;
+            color: #fbbf24;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        .quiz-question-box {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            max-width: 320px;
+            letter-spacing: 0.05em;
+        }
+        .quiz-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 340px;
+        }
+        .quiz-option-item {
+            background-color: #0c0e1a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            line-height: 1.5;
+            font-family: inherit;
+        }
+        .quiz-option-item:active {
+            transform: scale(0.97);
+            background-color: #1e293b;
+            border-color: #fbbf24;
+        }
+
+        /* ================= DETERMINATION (属性判定中) STYLE ================= */
+        .loader-portal {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 2px dashed rgba(251, 191, 36, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotate-portal 10s linear infinite;
+        }
+        .loader-orb {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(4px);
+            animation: pulse-orb 2s infinite ease-in-out;
+        }
+        @keyframes rotate-portal {
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse-orb {
+            0%, 100% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        /* ================= RESULT IMAGE PAGE STYLE ================= */
+        .result-image-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* 画像内の「15分無料鑑定へ進む」ボタン領域 */
+        .btn-appraisal-target {
+            position: absolute;
+            bottom: 10.8%;
+            left: 21%;
+            width: 58%;
+            height: 6.5%;
+            z-index: 20;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-radius: 9999px;
+            transition: transform 0.12s ease;
+        }
+        .btn-appraisal-target:active {
+            transform: scale(0.96);
+        }
+
+        /* 画像内の「旅を終える」ボタン領域 */
+        .btn-end-target {
+            position: absolute;
+            bottom: 3.5%;
+            left: 31%;
+            width: 38%;
+            height: 5.5%;
+            z-index: 10;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-radius: 9999px;
+            transition: transform 0.12s ease;
+        }
+        .btn-end-target:active {
+            transform: scale(0.96);
+        }
+
+        /* ================= MODAL STYLE ================= */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(3, 5, 12, 0.9);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-box {
+            background-color: #0b0f24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay-visible .modal-box {
+            transform: scale(1);
+        }
+        .modal-symbol {
+            font-size: 32px;
+            color: #fbbf24;
+        }
+        .modal-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 0.1em;
+        }
+        .modal-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 11px 14px;
+            background-color: #05070f;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 12px;
+            outline: none;
+            font-family: inherit;
+        }
+        .modal-input:focus {
+            border-color: #fbbf24;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="page-top" class="page">
+            <div class="top-bg"></div>
+            <button onclick="navigateTo('page-left-temp')" class="door-target-top door-left-top" aria-label="自分を知る旅へ"></button>
+            <button onclick="navigateTo('page-right-temp')" class="door-target-top door-right-top" aria-label="世界を形にする旅へ"></button>
+        </div>
+
+        <div id="page-left-temp" class="page page-hidden">
+            <div class="shinden-bg"></div>
+            <button onclick="navigateTo('page-about-shinden')" class="door-target" aria-label="診断開始"></button>
+        </div>
+
+        <div id="page-about-shinden" class="page inner-page page-hidden">
+            <div class="inner-bg-overlay"></div>
+            <div class="inner-header">
+                <button class="back-btn" onclick="navigateTo('page-left-temp')">← 神殿の入り口へ</button>
+            </div>
+            
+            <div class="inner-content">
+                <h2 class="inner-title">自分を知る旅</h2>
+                <div class="info-card" style="border-color: rgba(251, 191, 36, 0.3); background-color: rgba(10, 15, 30, 0.95); text-align: center;">
+                    <div class="info-card-title" style="font-size: 14px; justify-content: center; border-bottom: 1px solid rgba(251, 191, 36, 0.25); padding-bottom: 8px;">
+                        🌟 神殿の案内人
+                    </div>
+                    <div class="info-card-text" style="line-height: 1.8; color: #e2e8f0; font-size: 12px;">
+                        あなたの中に眠る力を見つける旅へようこそ。<br><br>
+                        これから3つの質問に答えるだけで、<br>
+                        あなたの魂が持つ属性が見えてきます。
+                    </div>
+                </div>
+                <div class="info-card" style="border-color: rgba(251, 191, 36, 0.15); background-color: rgba(8, 12, 24, 0.85);">
+                    <div class="info-card-title">属性とは？</div>
+                    <div class="info-card-text" style="color: #cbd5e1; line-height: 1.8;">
+                        あなたには、生まれ持った強みがあります。<br>
+                        属性は、<br>
+                        ・考え方のクセ<br>
+                        ・得意なこと<br>
+                        ・力を発揮しやすい環境<br>
+                        を知るためのヒントです。<br><br>
+                        3つの質問で、あなたの属性を見てみましょう。
+                    </div>
+                </div>
+                <button class="shinden-btn" onclick="startQuiz()">旅を始める</button>
+            </div>
+            <div></div>
+        </div>
+
+        <div id="page-quiz" class="page inner-page page-hidden">
+            <div class="inner-bg-overlay"></div>
+            <div class="inner-header">
+                <button class="back-btn" onclick="navigateTo('page-about-shinden')">← 旅を中断</button>
+            </div>
+            
+            <div class="inner-content" style="margin-top: 10px;">
+                <div class="quiz-indicator-container">
+                    <div id="quiz-progress-bar" class="quiz-indicator-bar"></div>
+                </div>
+                <div class="quiz-step-text" id="quiz-step-lbl">第 1 問 / 全 3 問</div>
+                <div class="quiz-question-box" id="quiz-question-text">
+                    問題が起きたら？
+                </div>
+                <div class="quiz-options-list" id="quiz-options-box"></div>
+            </div>
+            <div></div>
+        </div>
+
+        <div id="page-determination" class="page inner-page page-hidden">
+            <div class="inner-bg-overlay"></div>
+            <div class="inner-content" style="gap: 25px;">
+                <h2 class="inner-title" style="color: #fbbf24;">神殿が共鳴しています</h2>
+                <p class="inner-desc" style="font-size: 12px; color: #94a3b8;">
+                    あなたの回答から、魂の波長を読み取っています。<br>
+                    神聖なエネルギーとの調和をお待ちください...
+                </p>
+                <div class="loader-portal">
+                    <div class="loader-orb"></div>
+                </div>
+                <p class="inner-desc" style="font-size: 11px; color: #64748b; font-style: italic;">
+                    導きの光が間もなく灯ります
+                </p>
+            </div>
+        </div>
+
+        <div id="page-result" class="page page-hidden">
+            <div id="result-image-canvas" class="result-image-bg"></div>
+            <button onclick="navigateTo('page-video')" class="btn-appraisal-target" aria-label="15分無料鑑定へ進む"></button>
+            <button onclick="navigateTo('page-top')" class="btn-end-target" aria-label="旅を終える"></button>
+        </div>
+
+        <div id="page-video" class="page inner-page page-hidden">
+            <div class="inner-bg-overlay"></div>
+            <div class="inner-header">
+                <button class="back-btn" onclick="navigateTo('page-result')">← 結果へ戻る</button>
+            </div>
+            <div class="inner-content" style="gap: 14px; width: 100%; max-width: 360px; margin: 0 auto; justify-content: center;">
+                <div style="width: 100%; border-radius: 12px; overflow: hidden; background-color: #000; box-shadow: 0 4px 20px rgba(0,0,0,0.6); border: 1px solid rgba(251,191,36,0.15);">
+                    <video id="appraisal-video" src="属性神殿_15分鑑定動画.mp4" controls playsinline style="width: 100%; height: auto; display: block; max-height: 80vh; object-fit: contain;"></video>
+                </div>
+                <button
+                    class="shinden-btn"
+                    style="width: 100%; margin-top: 12px;"
+                    onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdpgJ79Bavk9JtCgGEvRIFvj3B3tSmSNQY7nIaQQZr8xRlzDg/viewform?usp=header'">
+                    15分無料鑑定を予約する
+                </button>
+            </div>
+            <div></div>
+        </div>
+
+        <div id="page-form" class="page inner-page page-hidden">
+            <div class="inner-bg-overlay"></div>
+            <div class="inner-header">
+                <button class="back-btn" onclick="navigateTo('page-video')">← 動画解説へ戻る</button>
+            </div>
+            <div class="inner-content" style="gap: 16px; width: 100%; max-width: 340px; margin: auto 0;">
+                <div class="info-card" style="border-color: rgba(251, 191, 36, 0.25); background-color: rgba(10, 15, 30, 0.95); width: 100%; text-align: center;">
+                    <div class="modal-symbol" style="margin-bottom: 5px;">🔮</div>
+                    <h3 class="modal-title" style="margin-bottom: 8px;">15分無料属性鑑定</h3>
+                    <p class="modal-desc" style="font-size: 11px; color: #94a3b8; line-height: 1.7;">
+                        お名前をご記入のうえ、「神殿に送る」をタップしてください。守護神との対話のスケジュールを個別案内いたします。
+                    </p>
+                </div>
+                <div style="width: 100%; text-align: left;">
+                    <label style="font-size: 11px; color: #fbbf24; display: block; margin-bottom: 6px; letter-spacing: 0.05em; font-weight: bold;">お名前（ニックネーム可）</label>
+                    <input type="text" id="user-name-input" class="modal-input" style="width: 100%; padding: 12px; font-size: 13px;" placeholder="お名前を入力してください" required>
+                </div>
+                <button class="shinden-btn" style="width: 100%;" onclick="submitReservationForm()">神殿に送る</button>
+            </div>
+            <div></div>
+        </div>
+
+        
+<div id="page-right-temp" class="page page-hidden">
+    <div style="position:absolute;inset:0;background:url('01_entrance.png') center/cover no-repeat;"></div>
+
+    <button onclick="navigateTo('page-lab-video')"
+style="
+position:absolute;
+left:28%;
+top:18%;
+width:32%;
+height:48%;
+background:transparent;
+border:none;
+cursor:pointer;
+z-index:30;"
+aria-label="入口"></button>
+</div>
+
+<div id="page-lab-video" class="page inner-page page-hidden">
+    <div class="inner-header">
+        <button class="back-btn" onclick="navigateTo('page-right-temp')">← 工房入口へ戻る</button>
+    </div>
+    <div class="inner-content" style="width:100%;max-width:360px;">
+        <video id="lab-video" src="02_intro.mp4" controls playsinline onended="navigateTo(\'page-lab-note\')"
+        style="width:100%;border-radius:12px;"></video>
+
+        <button class="shinden-btn"
+        onclick="navigateTo('page-lab-note')">
+        次へ
+        </button>
+    </div>
+</div>
+
+<div id="page-lab-note" class="page page-hidden">
+    <div style="position:absolute;inset:0;background:url('03_future_note.png') center/cover no-repeat;"></div>
+
+    <button onclick="alert('第1問はVer2で実装します');"
+    style="position:absolute;left:24%;top:78%;width:52%;height:8%;
+    background:transparent;border:none;cursor:pointer;"></button>
+</div>
+
+
+<div id="page-lab-video" class="page inner-page page-hidden">
+<div class="inner-header">
+<button class="back-btn" onclick="navigateTo('page-right-temp')">← 入口へ戻る</button>
+</div>
+<div class="inner-content" style="width:100%;max-width:360px;">
+<video id="lab-video" src="02_intro.mp4" controls playsinline onended="navigateTo('page-lab-note')" style="width:100%;border-radius:12px;"></video>
+<button class="shinden-btn" onclick="navigateTo('page-lab-note')">未来設計ノートへ</button>
+</div>
+</div>
+
+<div id="page-lab-note" class="page page-hidden">
+<div style="position:absolute;inset:0;background:url('03_future_note.png') center/cover no-repeat;"></div>
+<button onclick="navigateTo('page-lab-q1')" style="position:absolute;left:18%;bottom:7%;width:64%;height:10%;background:transparent;border:none;"></button>
+</div>
+
+<div id="page-lab-q1" class="page page-hidden">
+<div style="position:absolute;inset:0;background:url('04_question01.png') center/cover no-repeat;"></div>
+<button onclick="alert('第2問は次のバージョンで実装します')" style="position:absolute;left:18%;bottom:7%;width:64%;height:10%;background:transparent;border:none;"></button>
+</div>
+
+<div id="modal-thanks"
+ class="modal-overlay">
+        <div class="modal-box" style="border-color: #10b981;">
+            <div class="modal-symbol" style="color: #10b981;">✨</div>
+            <h3 class="modal-title">想いを受け取りました</h3>
+            <p class="modal-desc">
+                あなたの本質を示す意志が神殿に届きました。<br>
+                星の巡り合わせが整い次第、折り返し案内をお送りします。どうぞ楽しみにお待ちください。
+            </p>
+            <button class="shinden-btn" style="margin: 10px 0 0 0; font-size: 11px; padding: 10px 20px;" onclick="closeThanksAndReturnTop()">旅を終える</button>
+        </div>
+    </div>
+
+    <script>
+        const attributeImages = {
+            fire: "属性神殿_火属性.png",
+            water: "属性神殿_水属性.png",
+            earth: "属性神殿_土属性.png",
+            wood: "属性神殿_木属性.png",
+            metal: "属性神殿_金属性.png",
+            lightning: "属性神殿_雷属性.png",
+            wind: "属性神殿_風属性.png",
+            ice: "属性神殿_氷属性.png"
+        };
+        const quizQuestions = [
+            {
+                title: "問題が起きたら？",
+                options: [
+                    { text: "① すぐ動く", attrs: ["fire", "lightning"] },
+                    { text: "② 周囲を見る", attrs: ["water", "wood"] },
+                    { text: "③ 整理する", attrs: ["earth", "ice"] },
+                    { text: "④ 分析する", attrs: ["metal", "ice"] },
+                    { text: "⑤ 情報を集める", attrs: ["wind", "wood"] }
+                ]
+            },
+            {
+                title: "周りから言われるのは？",
+                options: [
+                    { text: "① 行動が早い・情熱的", attrs: ["fire", "lightning"] },
+                    { text: "② 優しくて話しやすい", attrs: ["water", "wind"] },
+                    { text: "③ 芯がブレなくて安心", attrs: ["earth", "metal"] },
+                    { text: "④ 人の成長を応援する", attrs: ["wood"] },
+                    { text: "⑤ 冷静で知的で頼れる", attrs: ["ice", "metal"] }
+                ]
+            },
+            {
+                title: "一番ストレスなのは？",
+                options: [
+                    { text: "① 自由がない・停滞", attrs: ["fire", "wind", "lightning"] },
+                    { text: "② 人間関係がギスギスする", attrs: ["water", "wood"] },
+                    { text: "③ 生活や土台が不安定", attrs: ["earth"] },
+                    { text: "④ 不合理・無駄なルール", attrs: ["metal", "ice"] },
+                    { text: "⑤ 感情論だけで進むこと", attrs: ["ice", "metal"] }
+                ]
+            }
+        ];
+        let quizScores = { fire: 0, water: 0, earth: 0, wood: 0, metal: 0, lightning: 0, wind: 0, ice: 0 };
+        let currentQuizIndex = 0;
+        function navigateTo(pageId) {
+            var pages = document.querySelectorAll('.page');
+            for (var i = 0; i < pages.length; i++) { pages[i].classList.add('page-hidden'); }
+            var target = document.getElementById(pageId);
+            if (target) { target.classList.remove('page-hidden'); }
+            const videoEl = document.getElementById('appraisal-video');
+            if (videoEl && pageId !== 'page-video') { videoEl.pause(); }
+        }
+        function startQuiz() {
+            currentQuizIndex = 0;
+            quizScores = { fire: 0, water: 0, earth: 0, wood: 0, metal: 0, lightning: 0, wind: 0, ice: 0 };
+            showQuestion();
+            navigateTo('page-quiz');
+        }
+        function showQuestion() {
+            const q = quizQuestions[currentQuizIndex];
+            const progressBar = document.getElementById('quiz-progress-bar');
+            progressBar.style.width = (((currentQuizIndex + 1) / quizQuestions.length) * 100) + "%";
+            document.getElementById('quiz-step-lbl').innerText = `第 ${currentQuizIndex + 1} 問 / 全 ${quizQuestions.length} 問`;
+            document.getElementById('quiz-question-text').innerText = q.title;
+            const box = document.getElementById('quiz-options-box');
+            box.innerHTML = '';
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-option-item";
+                btn.innerText = opt.text;
+                btn.onclick = function() { handleAnswer(opt.attrs); };
+                box.appendChild(btn);
+            });
+        }
+        function handleAnswer(attrs) {
+            attrs.forEach(attr => { quizScores[attr] = (quizScores[attr] || 0) + 1; });
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                showQuestion();
+            } else { processDetermination(); }
+        }
+        function processDetermination() {
+            navigateTo('page-determination');
+            setTimeout(function() { showResult(); }, 1800);
+        }
+        function showResult() {
+            let maxAttr = 'fire';
+            let maxScore = -1;
+            for (const key in quizScores) {
+                if (quizScores[key] > maxScore) { maxScore = quizScores[key]; maxAttr = key; }
+            }
+            const imgPath = attributeImages[maxAttr];
+            document.getElementById('result-image-canvas').style.backgroundImage = "url('" + imgPath + "')";
+            navigateTo('page-result');
+        }
+        function submitReservationForm() {
+            const input = document.getElementById('user-name-input');
+            if (!input || input.value.trim() === '') { if (input) input.style.borderColor = '#ef4444'; return; }
+            input.style.borderColor = '#1e293b';
+            document.getElementById('modal-thanks').classList.add('modal-overlay-visible');
+        }
+        function closeThanksAndReturnTop() {
+            document.getElementById('modal-thanks').classList.remove('modal-overlay-visible');
+            const input = document.getElementById('user-name-input');
+            if (input) input.value = '';
+            navigateTo('page-top');
+        }
+    </script>
+</body>
+</html>
