@@ -453,6 +453,186 @@
         .modal-input:focus {
             border-color: #fbbf24;
         }
+
+        /* ================= MIRAI LAB QUESTION PAGES ================= */
+        .lab-work-page {
+            display: block;
+            overflow-y: auto;
+            background: #f4ead6;
+            -webkit-overflow-scrolling: touch;
+        }
+        .lab-question-bg {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 941 / 1672;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: #21180f;
+            flex-shrink: 0;
+        }
+        .lab-note-panel {
+            padding: 26px 22px calc(34px + env(safe-area-inset-bottom));
+            color: #4b3a28;
+            background: linear-gradient(180deg, #f8f0df 0%, #efe1c7 100%);
+            text-align: left;
+            border-top: 1px solid rgba(121, 91, 51, 0.22);
+        }
+        .lab-note-guide {
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            font-size: 15px;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+        .lab-note-or {
+            margin: 15px 0;
+            color: #8a7357;
+            font-size: 13px;
+            text-align: center;
+        }
+        .lab-note-label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .lab-note-input {
+            display: block;
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            resize: vertical;
+            border: 1px solid rgba(121, 91, 51, 0.35);
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255, 252, 244, 0.92);
+            color: #3f3124;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            font-size: 16px;
+            line-height: 1.7;
+            box-shadow: inset 0 1px 5px rgba(90, 62, 31, 0.08);
+        }
+        .lab-note-input:focus {
+            border-color: #91a853;
+            box-shadow: 0 0 0 3px rgba(145, 168, 83, 0.16);
+        }
+        .lab-save-button {
+            display: block;
+            width: 100%;
+            min-height: 54px;
+            margin-top: 18px;
+            padding: 13px 18px;
+            border: 1px solid rgba(105, 125, 49, 0.45);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #829d3f, #a6bd61);
+            color: #fffef7;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(73, 91, 31, 0.25);
+        }
+        .lab-save-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 7px rgba(73, 91, 31, 0.22);
+        }
+        .lab-summary-page {
+            display: block;
+            overflow-y: auto;
+            padding: 34px 20px calc(38px + env(safe-area-inset-bottom));
+            background:
+                radial-gradient(circle at top, rgba(198, 218, 143, 0.28), transparent 42%),
+                linear-gradient(180deg, #f9f2e3 0%, #ead9ba 100%);
+            color: #493725;
+            -webkit-overflow-scrolling: touch;
+        }
+        .lab-summary-title {
+            margin-bottom: 8px;
+            color: #5d7132;
+            font-size: 23px;
+            line-height: 1.5;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        .lab-summary-intro {
+            margin-bottom: 25px;
+            color: #806b51;
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .lab-summary-item {
+            padding: 18px 16px;
+            border-bottom: 1px solid rgba(112, 87, 55, 0.2);
+            background: rgba(255, 252, 244, 0.68);
+        }
+        .lab-summary-item:first-of-type {
+            border-radius: 14px 14px 0 0;
+        }
+        .lab-summary-item:nth-of-type(5) {
+            border-bottom: none;
+            border-radius: 0 0 14px 14px;
+        }
+        .lab-summary-question {
+            margin-bottom: 9px;
+            color: #6d803b;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .lab-summary-answer {
+            min-height: 28px;
+            color: #453426;
+            font-size: 15px;
+            line-height: 1.75;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .lab-summary-message {
+            margin: 27px 0 22px;
+            color: #5f4a34;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.8;
+            text-align: center;
+        }
+        .lab-summary-actions {
+            display: grid;
+            gap: 11px;
+        }
+        .lab-summary-button {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+        }
+        .lab-summary-edit {
+            border: 1px solid rgba(100, 119, 56, 0.55);
+            background: rgba(255, 252, 244, 0.82);
+            color: #5b6e32;
+        }
+        .lab-summary-save {
+            border: 1px solid rgba(105, 125, 49, 0.45);
+            background: linear-gradient(135deg, #829d3f, #a6bd61);
+            color: #fffef7;
+        }
+        .lab-summary-consult {
+            border: 1px solid rgba(155, 111, 34, 0.4);
+            background: linear-gradient(135deg, #c99638, #e1b75f);
+            color: #fffdf5;
+        }
+        .lab-summary-status {
+            min-height: 22px;
+            margin-top: 10px;
+            color: #647837;
+            font-size: 12px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -618,13 +798,15 @@ aria-label="入口"></button>
 <div id="page-lab-note" class="page page-hidden">
 <div style="position:absolute;inset:0;background:url('03_future_note.png') center/cover no-repeat;"></div>
 <button
+type="button"
+aria-label="準備ができたら、旅を始める"
 onclick="navigateTo('page-lab-q1')"
 style="
 position:absolute;
-left:18%;
-bottom:7%;
-width:64%;
-height:10%;
+left:17%;
+top:65%;
+width:66%;
+height:9%;
 background:transparent;
 border:none;
 cursor:pointer;
@@ -632,9 +814,104 @@ z-index:30;">
 </button>
 </div>
 
-<div id="page-lab-q1" class="page page-hidden">
-<div style="position:absolute;inset:0;background:url('04_question01.png') center/cover no-repeat;"></div>
-<button onclick="alert('第2問は次のバージョンで実装します')" style="position:absolute;left:18%;bottom:7%;width:64%;height:10%;background:transparent;border:none;"></button>
+<div id="page-lab-q1" class="page lab-work-page page-hidden">
+<div class="lab-question-bg" style="background-image:url('04_question01.png');"></div>
+<div class="lab-note-panel">
+<p class="lab-note-guide">🌿 まずはご自身のノートに自由に書いてみましょう。</p>
+<p class="lab-note-or">または</p>
+<label class="lab-note-label" for="future-note-q1">📱 アプリにも記録できます。</label>
+<textarea id="future-note-q1" class="lab-note-input" data-note-key="q1" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q1', 'page-lab-q2')">✨ 保存して次へ</button>
+</div>
+</div>
+
+<div id="page-lab-q2" class="page lab-work-page page-hidden">
+<div class="lab-question-bg" style="background-image:url('05_question02.png');"></div>
+<div class="lab-note-panel">
+<p class="lab-note-guide">🌿 まずはご自身のノートに自由に書いてみましょう。</p>
+<p class="lab-note-or">または</p>
+<label class="lab-note-label" for="future-note-q2">📱 アプリにも記録できます。</label>
+<textarea id="future-note-q2" class="lab-note-input" data-note-key="q2" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q2', 'page-lab-q3')">✨ 保存して次へ</button>
+</div>
+</div>
+
+<div id="page-lab-q3" class="page lab-work-page page-hidden">
+<div class="lab-question-bg" style="background-image:url('06_question03.png');"></div>
+<div class="lab-note-panel">
+<p class="lab-note-guide">🌿 まずはご自身のノートに自由に書いてみましょう。</p>
+<p class="lab-note-or">または</p>
+<label class="lab-note-label" for="future-note-q3">📱 アプリにも記録できます。</label>
+<textarea id="future-note-q3" class="lab-note-input" data-note-key="q3" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q3', 'page-lab-q4')">✨ 保存して次へ</button>
+</div>
+</div>
+
+<div id="page-lab-q4" class="page lab-work-page page-hidden">
+<div class="lab-question-bg" style="background-image:url('07_question04.png');"></div>
+<div class="lab-note-panel">
+<p class="lab-note-guide">🌿 まずはご自身のノートに自由に書いてみましょう。</p>
+<p class="lab-note-or">または</p>
+<label class="lab-note-label" for="future-note-q4">📱 アプリにも記録できます。</label>
+<textarea id="future-note-q4" class="lab-note-input" data-note-key="q4" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q4', 'page-lab-q5')">✨ 保存して次へ</button>
+</div>
+</div>
+
+<div id="page-lab-q5" class="page lab-work-page page-hidden">
+<div class="lab-question-bg" style="background-image:url('08_question05.png');"></div>
+<div class="lab-note-panel">
+<p class="lab-note-guide">🌿 まずはご自身のノートに自由に書いてみましょう。</p>
+<p class="lab-note-or">または</p>
+<label class="lab-note-label" for="future-note-q5">📱 アプリにも記録できます。</label>
+<textarea id="future-note-q5" class="lab-note-input" data-note-key="q5" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-summary')">✨ 保存して次へ</button>
+</div>
+</div>
+
+<div id="page-lab-summary" class="page lab-summary-page page-hidden">
+<h2 class="lab-summary-title">🌿 あなたの未来ノート</h2>
+<p class="lab-summary-intro">今回書き出した言葉を、ゆっくり眺めてみましょう。</p>
+
+<section class="lab-summary-item">
+<h3 class="lab-summary-question">第1問</h3>
+<p id="future-summary-q1" class="lab-summary-answer"></p>
+</section>
+<section class="lab-summary-item">
+<h3 class="lab-summary-question">第2問</h3>
+<p id="future-summary-q2" class="lab-summary-answer"></p>
+</section>
+<section class="lab-summary-item">
+<h3 class="lab-summary-question">第3問</h3>
+<p id="future-summary-q3" class="lab-summary-answer"></p>
+</section>
+<section class="lab-summary-item">
+<h3 class="lab-summary-question">第4問</h3>
+<p id="future-summary-q4" class="lab-summary-answer"></p>
+</section>
+<section class="lab-summary-item">
+<h3 class="lab-summary-question">第5問</h3>
+<p id="future-summary-q5" class="lab-summary-answer"></p>
+</section>
+
+<p class="lab-summary-message">今日書いた言葉は、未来への第一歩です。</p>
+<div class="lab-summary-actions">
+<button type="button" class="lab-summary-button lab-summary-edit" onclick="editFutureNotes()">編集する</button>
+<button type="button" class="lab-summary-button lab-summary-save" onclick="saveFutureNoteCollection()">保存する</button>
+<button type="button" class="lab-summary-button lab-summary-consult" onclick="navigateTo('page-lab-consultation')">無料相談へ進む</button>
+</div>
+<p id="future-note-save-status" class="lab-summary-status" role="status" aria-live="polite"></p>
+</div>
+
+<div id="page-lab-consultation" class="page page-hidden">
+<div style="position:absolute;inset:0;background:url('09_consultation.png') center/cover no-repeat;"></div>
+<a
+href="https://docs.google.com/forms/d/e/1FAIpQLSdiECFZbDW3iy_zAzCBUDm9DymKaaLlluJ1D1kIPng4PXeyDg/viewform?usp=publish-editor"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="30分無料相談を申し込む"
+style="position:absolute;left:18%;bottom:0;width:64%;height:15%;background:transparent;z-index:30;cursor:pointer;"
+></a>
 </div>
 
 <div id="modal-thanks"
@@ -758,6 +1035,85 @@ z-index:30;">
             if (input) input.value = '';
             navigateTo('page-top');
         }
+
+        const futureNoteStoragePrefix = 'futureNote_';
+        const legacyFutureNoteStoragePrefix = 'sophia_future_lab_v2_';
+        const futureNoteKeys = ['q1', 'q2', 'q3', 'q4', 'q5'];
+
+        function saveFutureNoteDraft(textarea) {
+            if (!textarea || !textarea.dataset.noteKey) return;
+            try {
+                localStorage.setItem(futureNoteStoragePrefix + textarea.dataset.noteKey, textarea.value);
+            } catch (error) {
+                console.warn('未来ノートの下書きを保存できませんでした。', error);
+            }
+        }
+
+        function restoreFutureNotes() {
+            const textareas = document.querySelectorAll('.lab-note-input');
+            textareas.forEach(function(textarea) {
+                try {
+                    const storageKey = futureNoteStoragePrefix + textarea.dataset.noteKey;
+                    let savedValue = localStorage.getItem(storageKey);
+                    if (savedValue === null) {
+                        savedValue = localStorage.getItem(legacyFutureNoteStoragePrefix + textarea.dataset.noteKey);
+                        if (savedValue !== null) localStorage.setItem(storageKey, savedValue);
+                    }
+                    if (savedValue !== null) textarea.value = savedValue;
+                } catch (error) {
+                    console.warn('未来ノートの下書きを読み込めませんでした。', error);
+                }
+            });
+        }
+
+        function saveFutureNoteAndNext(noteKey, nextPageId) {
+            const textarea = document.querySelector('.lab-note-input[data-note-key="' + noteKey + '"]');
+            if (textarea) saveFutureNoteDraft(textarea);
+            if (nextPageId === 'page-lab-summary') renderFutureNoteSummary();
+            navigateTo(nextPageId);
+        }
+
+        function getFutureNoteValue(noteKey) {
+            const textarea = document.querySelector('.lab-note-input[data-note-key="' + noteKey + '"]');
+            if (textarea) return textarea.value;
+            try {
+                return localStorage.getItem(futureNoteStoragePrefix + noteKey) || '';
+            } catch (error) {
+                return '';
+            }
+        }
+
+        function renderFutureNoteSummary() {
+            futureNoteKeys.forEach(function(noteKey) {
+                const output = document.getElementById('future-summary-' + noteKey);
+                if (!output) return;
+                const value = getFutureNoteValue(noteKey).trim();
+                output.textContent = value || '（まだ入力されていません）';
+            });
+            const status = document.getElementById('future-note-save-status');
+            if (status) status.textContent = '';
+        }
+
+        function editFutureNotes() {
+            navigateTo('page-lab-q1');
+            const firstQuestion = document.getElementById('page-lab-q1');
+            if (firstQuestion) firstQuestion.scrollTop = 0;
+        }
+
+        function saveFutureNoteCollection() {
+            futureNoteKeys.forEach(function(noteKey) {
+                const textarea = document.querySelector('.lab-note-input[data-note-key="' + noteKey + '"]');
+                if (textarea) saveFutureNoteDraft(textarea);
+            });
+            renderFutureNoteSummary();
+            const status = document.getElementById('future-note-save-status');
+            if (status) status.textContent = '未来ノートをブラウザ内に保存しました。';
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            restoreFutureNotes();
+            renderFutureNoteSummary();
+        });
     </script>
 </body>
 </html>
