@@ -633,6 +633,172 @@
             font-size: 12px;
             text-align: center;
         }
+        .workshop-library-page {
+            display: block;
+            overflow-y: auto;
+            background: #090705;
+            -webkit-overflow-scrolling: touch;
+        }
+        .workshop-library-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 941 / 1672;
+            background: url('10_workshop_library.png') center top / 100% 100% no-repeat;
+        }
+        .workshop-library-link {
+            position: absolute;
+            z-index: 30;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            outline: none;
+        }
+        .workshop-library-link:active {
+            transform: scale(0.98);
+        }
+        .workshop-library-satoeri {
+            left: 4%;
+            top: 33%;
+            width: 29%;
+            height: 25%;
+        }
+        .workshop-library-mirai {
+            left: 34%;
+            top: 33%;
+            width: 32%;
+            height: 25%;
+        }
+        .workshop-library-lumina {
+            left: 67%;
+            top: 33%;
+            width: 29%;
+            height: 25%;
+        }
+        .workshop-library-open {
+            left: 7%;
+            bottom: 4%;
+            width: 86%;
+            height: 11%;
+            border-radius: 999px;
+        }
+        .workshop-story-page {
+            padding: 24px 22px calc(30px + env(safe-area-inset-bottom));
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at top, rgba(255, 213, 166, 0.2), transparent 44%),
+                linear-gradient(180deg, #120b11 0%, #2a1724 55%, #f2d8c6 100%);
+            color: #fff8ee;
+        }
+        .workshop-story-inner {
+            width: 100%;
+            margin: auto 0;
+        }
+        .workshop-story-title {
+            margin-bottom: 22px;
+            color: #fff5e7;
+            font-size: 24px;
+            line-height: 1.5;
+            letter-spacing: 0.06em;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.38);
+        }
+        .workshop-story-video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 248, 231, 0.22);
+            border-radius: 14px;
+            background: #090705;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.26);
+            overflow: hidden;
+        }
+        .workshop-story-video video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: contain;
+        }
+        .workshop-story-actions {
+            display: grid;
+            gap: 14px;
+            width: 100%;
+        }
+        .workshop-story-button {
+            width: 100%;
+            min-height: 58px;
+            padding: 14px 18px;
+            border: 1px solid rgba(132, 76, 92, 0.28);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fff8e7, #f0bdcb);
+            color: #4a2432;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(74, 36, 50, 0.2);
+        }
+        .workshop-story-button:active {
+            transform: translateY(1px);
+        }
+        .workshop-story-return {
+            width: 100%;
+            min-height: 54px;
+            padding: 13px 18px;
+            border: 1px solid rgba(255, 248, 231, 0.35);
+            border-radius: 999px;
+            background: rgba(255, 248, 231, 0.14);
+            color: #fff8e7;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+        }
+        .workshop-story-return:active {
+            transform: translateY(1px);
+        }
+        .workshop-story-return-hidden {
+            display: none;
+        }
+        .workshop-next-page {
+            padding: 34px 24px calc(28px + env(safe-area-inset-bottom));
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at top, rgba(231, 199, 118, 0.18), transparent 48%),
+                linear-gradient(180deg, #0d0a08 0%, #21180f 54%, #f2e4c8 100%);
+            color: #fff8e8;
+        }
+        .workshop-next-message {
+            margin: auto 0;
+            color: #fff7e6;
+            font-size: 22px;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+        }
+        .workshop-next-button {
+            width: 100%;
+            min-height: 58px;
+            padding: 14px 18px;
+            border: 1px solid rgba(139, 96, 28, 0.36);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fff6dc, #e8c575);
+            color: #442d12;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(68, 45, 18, 0.22);
+        }
+        .workshop-next-button:active {
+            transform: translateY(1px);
+        }
     </style>
 </head>
 <body>
@@ -790,7 +956,7 @@ aria-label="入口"></button>
 <button class="back-btn" onclick="navigateTo('page-right-temp')">← 入口へ戻る</button>
 </div>
 <div class="inner-content" style="width:100%;max-width:360px;">
-<video id="lab-video" src="02_intro.mp4" controls playsinline onended="navigateTo('page-lab-note')" style="width:100%;border-radius:12px;"></video>
+<video id="lab-video" src="02_intro.mp4" controls autoplay muted playsinline onended="navigateTo('page-lab-note')" style="width:100%;border-radius:12px;"></video>
 <button class="shinden-btn" onclick="navigateTo('page-lab-note')">未来設計ノートへ</button>
 </div>
 </div>
@@ -865,8 +1031,41 @@ z-index:30;">
 <p class="lab-note-or">または</p>
 <label class="lab-note-label" for="future-note-q5">📱 アプリにも記録できます。</label>
 <textarea id="future-note-q5" class="lab-note-input" data-note-key="q5" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
-<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-summary')">✨ 保存して次へ</button>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-workshop-library')">✨ 保存して次へ</button>
 </div>
+</div>
+
+<div id="page-lab-workshop-library" class="page workshop-library-page page-hidden">
+<div class="workshop-library-frame">
+<button type="button" class="workshop-library-link workshop-library-satoeri" onclick="openWorkshopLibraryStory('satoeri')" aria-label="サトエリの物語へ"></button>
+<button type="button" class="workshop-library-link workshop-library-mirai" onclick="openWorkshopLibraryStory('mirai')" aria-label="ミライの物語へ"></button>
+<button type="button" class="workshop-library-link workshop-library-lumina" onclick="openWorkshopLibraryStory('lumina')" aria-label="ルミナの物語へ"></button>
+<button type="button" class="workshop-library-link workshop-library-open" onclick="navigateTo('page-lab-workshop-next')" aria-label="作品を開く"></button>
+</div>
+</div>
+
+<div id="page-lab-satoeri-story" class="page workshop-story-page page-hidden">
+<div class="workshop-story-inner">
+<h2 class="workshop-story-title">サトエリの物語</h2>
+<div class="workshop-story-video">
+<video id="satoeri-customer-voice-video" src="11_customer_voice_satoeri.mp4" controls playsinline preload="metadata" onended="showSatoeriReturnButton()"></video>
+</div>
+<div class="workshop-story-actions">
+<button type="button" class="workshop-story-button" onclick="openWorkshopLibraryStory('satoeriApp')">アプリを体験する</button>
+<button type="button" id="satoeri-return-button" class="workshop-story-return workshop-story-return-hidden" onclick="navigateTo('page-lab-workshop-library')">工房書庫へ戻る</button>
+</div>
+</div>
+</div>
+
+<div id="page-lab-workshop-next" class="page workshop-next-page page-hidden">
+<p class="workshop-next-message">
+次に、この工房で<br>
+新しい物語を紡ぐのは、<br>
+あなたかもしれません。<br><br>
+あなたの想いを、<br>
+世界にひとつの形へ。
+</p>
+<button type="button" class="workshop-next-button" onclick="navigateTo('page-lab-consultation')">30分無料制作相談はこちら</button>
 </div>
 
 <div id="page-lab-summary" class="page lab-summary-page page-hidden">
@@ -979,6 +1178,21 @@ style="position:absolute;left:18%;bottom:0;width:64%;height:15%;background:trans
             if (target) { target.classList.remove('page-hidden'); }
             const videoEl = document.getElementById('appraisal-video');
             if (videoEl && pageId !== 'page-video') { videoEl.pause(); }
+            const labVideoEl = document.getElementById('lab-video');
+            if (labVideoEl) {
+                if (pageId === 'page-lab-video') {
+                    labVideoEl.muted = true;
+                    labVideoEl.setAttribute('muted', '');
+                    labVideoEl.setAttribute('playsinline', '');
+                    labVideoEl.play().catch(function(error) {
+                        console.warn('予告動画の自動再生がブラウザによりブロックされました。', error);
+                    });
+                } else {
+                    labVideoEl.pause();
+                }
+            }
+            const satoeriVideoEl = document.getElementById('satoeri-customer-voice-video');
+            if (satoeriVideoEl && pageId !== 'page-lab-satoeri-story') { satoeriVideoEl.pause(); }
         }
         function startQuiz() {
             currentQuizIndex = 0;
@@ -1039,6 +1253,43 @@ style="position:absolute;left:18%;bottom:0;width:64%;height:15%;background:trans
         const futureNoteStoragePrefix = 'futureNote_';
         const legacyFutureNoteStoragePrefix = 'sophia_future_lab_v2_';
         const futureNoteKeys = ['q1', 'q2', 'q3', 'q4', 'q5'];
+        const workshopLibraryLinks = {
+            satoeriApp: 'https://sophialab-ai.github.io/Client_Projects/satoeri/',
+            mirai: 'https://sophialab-ai.github.io/mirai-workstyle/',
+            lumina: 'https://sophialab-ai.github.io/lumina-card/'
+        };
+
+        function openWorkshopLibraryStory(storyKey) {
+            if (storyKey === 'satoeri') {
+                resetSatoeriStoryPage();
+                navigateTo('page-lab-satoeri-story');
+                return;
+            }
+            const url = workshopLibraryLinks[storyKey];
+            if (url && url.trim() !== '') {
+                if (storyKey === 'satoeriApp') {
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                    return;
+                }
+                window.location.href = url;
+                return;
+            }
+        }
+
+        function resetSatoeriStoryPage() {
+            const returnButton = document.getElementById('satoeri-return-button');
+            if (returnButton) returnButton.classList.add('workshop-story-return-hidden');
+            const video = document.getElementById('satoeri-customer-voice-video');
+            if (video) {
+                video.pause();
+                try { video.currentTime = 0; } catch (error) {}
+            }
+        }
+
+        function showSatoeriReturnButton() {
+            const returnButton = document.getElementById('satoeri-return-button');
+            if (returnButton) returnButton.classList.remove('workshop-story-return-hidden');
+        }
 
         function saveFutureNoteDraft(textarea) {
             if (!textarea || !textarea.dataset.noteKey) return;
