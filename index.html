@@ -537,6 +537,26 @@
             transform: translateY(1px);
             box-shadow: 0 2px 7px rgba(73, 91, 31, 0.22);
         }
+        .lab-back-button {
+            display: block;
+            width: 100%;
+            min-height: 50px;
+            margin-top: 11px;
+            padding: 12px 18px;
+            border: 1px solid rgba(102, 91, 63, 0.36);
+            border-radius: 999px;
+            background: rgba(255, 252, 244, 0.46);
+            color: #665237;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+        }
+        .lab-back-button:active {
+            transform: translateY(1px);
+            background: rgba(239, 225, 199, 0.62);
+        }
         .lab-summary-page {
             display: block;
             overflow-y: auto;
@@ -999,6 +1019,7 @@ z-index:30;">
 <label class="lab-note-label" for="future-note-q2">📱 アプリにも記録できます。</label>
 <textarea id="future-note-q2" class="lab-note-input" data-note-key="q2" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
 <button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q2', 'page-lab-q3')">✨ 保存して次へ</button>
+<button type="button" class="lab-back-button" onclick="saveFutureNoteAndNext('q2', 'page-lab-q1')">← 前へ戻る</button>
 </div>
 </div>
 
@@ -1010,6 +1031,7 @@ z-index:30;">
 <label class="lab-note-label" for="future-note-q3">📱 アプリにも記録できます。</label>
 <textarea id="future-note-q3" class="lab-note-input" data-note-key="q3" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
 <button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q3', 'page-lab-q4')">✨ 保存して次へ</button>
+<button type="button" class="lab-back-button" onclick="saveFutureNoteAndNext('q3', 'page-lab-q2')">← 前へ戻る</button>
 </div>
 </div>
 
@@ -1021,6 +1043,7 @@ z-index:30;">
 <label class="lab-note-label" for="future-note-q4">📱 アプリにも記録できます。</label>
 <textarea id="future-note-q4" class="lab-note-input" data-note-key="q4" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
 <button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q4', 'page-lab-q5')">✨ 保存して次へ</button>
+<button type="button" class="lab-back-button" onclick="saveFutureNoteAndNext('q4', 'page-lab-q3')">← 前へ戻る</button>
 </div>
 </div>
 
@@ -1031,7 +1054,8 @@ z-index:30;">
 <p class="lab-note-or">または</p>
 <label class="lab-note-label" for="future-note-q5">📱 アプリにも記録できます。</label>
 <textarea id="future-note-q5" class="lab-note-input" data-note-key="q5" oninput="saveFutureNoteDraft(this)" placeholder="ここに自由に書いてください"></textarea>
-<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-workshop-library')">✨ 保存して次へ</button>
+<button type="button" class="lab-save-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-summary')">✨ 保存して次へ</button>
+<button type="button" class="lab-back-button" onclick="saveFutureNoteAndNext('q5', 'page-lab-q4')">← 前へ戻る</button>
 </div>
 </div>
 
@@ -1097,7 +1121,7 @@ z-index:30;">
 <div class="lab-summary-actions">
 <button type="button" class="lab-summary-button lab-summary-edit" onclick="editFutureNotes()">編集する</button>
 <button type="button" class="lab-summary-button lab-summary-save" onclick="saveFutureNoteCollection()">保存する</button>
-<button type="button" class="lab-summary-button lab-summary-consult" onclick="navigateTo('page-lab-consultation')">無料相談へ進む</button>
+<button type="button" class="lab-summary-button lab-summary-consult" onclick="navigateTo('page-lab-workshop-library')">工房書庫へ進む</button>
 </div>
 <p id="future-note-save-status" class="lab-summary-status" role="status" aria-live="polite"></p>
 </div>
