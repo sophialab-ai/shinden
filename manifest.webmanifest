@@ -1,0 +1,16 @@
+{
+  "name": "未来実装ラボ",
+  "short_name": "未来実装ラボ",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4ead6",
+  "theme_color": "#f4ead6",
+  "icons": [
+    {
+      "src": "future-lab-icon-v1.1.png",
+      "sizes": "1254x1254",
+      "type": "image/png"
+    }
+  ]
+}
