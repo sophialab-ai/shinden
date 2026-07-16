@@ -54,3 +54,6 @@
 ・工房書庫
 ・お客様の声動画
 ・30分無料相談
+
+## 公開URL
+https://sophialab-ai.github.io/shinden/
