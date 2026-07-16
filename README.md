@@ -57,3 +57,9 @@
 
 ## 公開URL
 https://sophialab-ai.github.io/shinden/
+
+📱 制作・企画
+
+Sophia Lab AI
+
+未来を、設計する。
