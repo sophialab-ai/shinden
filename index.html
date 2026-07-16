@@ -49,40 +49,97 @@
             pointer-events: none;
             overflow: hidden;
             opacity: 1;
+            background:
+                radial-gradient(circle at 50% 42%, rgba(221, 190, 93, 0.18), transparent 34%),
+                linear-gradient(145deg, #101d2c 0%, #18322d 54%, #0e1a2a 100%);
+            animation: labOpeningFade 7s ease-in-out forwards;
         }
         .lab-opening-bird.lab-opening-bird-hidden {
             display: none;
         }
+        .lab-opening-logo {
+            position: absolute;
+            top: calc(24px + env(safe-area-inset-top));
+            left: 0;
+            width: 100%;
+            color: rgba(255, 248, 222, 0.88);
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.12em;
+            text-align: center;
+            text-shadow: 0 0 14px rgba(239, 207, 122, 0.35);
+            opacity: 0;
+            animation: labOpeningLogo 7s ease-in-out forwards;
+        }
+        .lab-opening-door {
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            width: 38%;
+            height: 34%;
+            border-radius: 50% 50% 18px 18px;
+            border: 1px solid rgba(246, 218, 130, 0.22);
+            background:
+                radial-gradient(ellipse at center, rgba(255, 244, 188, 0.62) 0%, rgba(242, 204, 103, 0.24) 38%, rgba(242, 204, 103, 0) 72%);
+            box-shadow:
+                0 0 32px rgba(242, 204, 103, 0.22),
+                inset 0 0 28px rgba(255, 247, 204, 0.18);
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: labOpeningDoor 7s ease-in-out forwards;
+        }
+        .lab-opening-door::before,
+        .lab-opening-door::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            width: 42%;
+            height: 82%;
+            border: 1px solid rgba(255, 232, 151, 0.2);
+            background: linear-gradient(180deg, rgba(255, 245, 191, 0.12), rgba(255, 245, 191, 0.02));
+        }
+        .lab-opening-door::before {
+            left: 7%;
+            border-radius: 80% 8px 8px 18px;
+            transform: perspective(180px) rotateY(18deg);
+        }
+        .lab-opening-door::after {
+            right: 7%;
+            border-radius: 8px 80% 18px 8px;
+            transform: perspective(180px) rotateY(-18deg);
+        }
         .lab-opening-bird-stage {
             position: absolute;
-            left: -34%;
-            bottom: 9%;
-            width: 42%;
+            left: 50%;
+            top: 45%;
+            width: min(48vw, 220px);
             aspect-ratio: 1 / 1;
-            animation: labBirdFlight 1.8s ease-in-out forwards;
+            transform: translate3d(-50%, -50%, 0);
+            opacity: 0;
+            animation: labBirdGuideFlight 7s cubic-bezier(0.32, 0.02, 0.16, 1) forwards;
         }
         .lab-opening-bird-glow {
             position: absolute;
-            inset: 8%;
+            inset: 3%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 249, 214, 0.36), rgba(255, 249, 214, 0) 68%);
-            filter: blur(2px);
-            opacity: 0.8;
-            animation: labBirdGlow 1.8s ease-in-out forwards;
+            background: radial-gradient(circle, rgba(255, 246, 204, 0.62), rgba(239, 204, 112, 0.18) 48%, rgba(255, 249, 214, 0) 72%);
+            filter: blur(3px);
+            opacity: 0;
+            animation: labBirdGlow 7s ease-in-out forwards;
         }
         .lab-opening-bird-particles {
             position: absolute;
-            left: -16%;
-            top: 54%;
-            width: 72%;
-            height: 34%;
-            opacity: 0.55;
+            left: -18%;
+            top: 48%;
+            width: 86%;
+            height: 42%;
+            opacity: 0;
             background:
                 radial-gradient(circle at 12% 72%, rgba(255, 247, 202, 0.9) 0 2px, transparent 3px),
                 radial-gradient(circle at 31% 44%, rgba(255, 255, 238, 0.72) 0 1px, transparent 3px),
                 radial-gradient(circle at 54% 66%, rgba(255, 241, 184, 0.7) 0 1px, transparent 3px),
                 radial-gradient(circle at 78% 36%, rgba(255, 255, 245, 0.66) 0 1px, transparent 3px);
-            animation: labBirdParticles 1.8s ease-out forwards;
+            animation: labBirdParticles 7s ease-out forwards;
         }
         .lab-opening-bird-image {
             position: absolute;
@@ -90,24 +147,80 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 0 16px rgba(255, 246, 204, 0.55));
-            animation: labBirdFloat 0.9s ease-in-out 2;
+            opacity: 1;
+            filter:
+                brightness(1.24)
+                drop-shadow(0 0 18px rgba(255, 247, 209, 0.76))
+                drop-shadow(0 0 34px rgba(238, 200, 101, 0.28));
+            animation: labBirdFloat 2.4s ease-in-out 1s 2;
         }
-        @keyframes labBirdFlight {
-            0% {
-                transform: translate3d(0, 0, 0) scale(0.78) rotate(-4deg);
-                opacity: 0;
-            }
-            14% {
-                opacity: 0.94;
-            }
-            52% {
-                transform: translate3d(120%, -72%, 0) scale(0.82) rotate(3deg);
-                opacity: 0.92;
+        @keyframes labOpeningFade {
+            0%, 86% {
+                opacity: 1;
             }
             100% {
-                transform: translate3d(275%, -178%, 0) scale(0.7) rotate(8deg);
                 opacity: 0;
+            }
+        }
+        @keyframes labOpeningLogo {
+            0% {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            14%, 82% {
+                opacity: 0.88;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-2px);
+            }
+        }
+        @keyframes labOpeningDoor {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.92);
+            }
+            14% {
+                opacity: 0.52;
+                transform: translateX(-50%) scale(1);
+            }
+            72% {
+                opacity: 0.5;
+            }
+            84% {
+                opacity: 0.78;
+                transform: translateX(-50%) scale(1.08);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(1.14);
+            }
+        }
+        @keyframes labBirdGuideFlight {
+            0%, 14% {
+                opacity: 0;
+                transform: translate3d(-50%, -50%, 0) scale(0.58) rotate(-2deg);
+            }
+            28% {
+                opacity: 0.96;
+                transform: translate3d(-50%, -50%, 0) scale(0.72) rotate(0deg);
+            }
+            36% {
+                opacity: 0.98;
+                transform: translate3d(-50%, -50%, 0) scale(0.73) rotate(1deg);
+            }
+            72% {
+                opacity: 0.98;
+                transform: translate3d(-18%, -18%, 0) scale(0.86) rotate(3deg);
+            }
+            86% {
+                opacity: 0;
+                transform: translate3d(-8%, -24%, 0) scale(0.92) rotate(2deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(-8%, -24%, 0) scale(0.92) rotate(2deg);
             }
         }
         @keyframes labBirdFloat {
@@ -115,33 +228,38 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-10px);
             }
         }
         @keyframes labBirdGlow {
-            0% {
+            0%, 14% {
                 opacity: 0;
-                transform: scale(0.82);
+                transform: scale(0.84);
             }
-            32% {
+            28%, 72% {
+                opacity: 0.82;
+                transform: scale(1);
+            }
+            86% {
                 opacity: 0.72;
+                transform: scale(1.18);
             }
             100% {
                 opacity: 0;
-                transform: scale(1.1);
+                transform: scale(1.24);
             }
         }
         @keyframes labBirdParticles {
-            0% {
+            0%, 18% {
                 opacity: 0;
                 transform: translate3d(0, 8px, 0);
             }
-            28% {
-                opacity: 0.55;
+            38%, 70% {
+                opacity: 0.48;
             }
             100% {
                 opacity: 0;
-                transform: translate3d(-18px, 16px, 0);
+                transform: translate3d(-24px, 18px, 0);
             }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -940,6 +1058,8 @@
 
     <div class="app-container">
         <div id="lab-opening-bird" class="lab-opening-bird" aria-hidden="true">
+            <div class="lab-opening-logo">Sophia Lab AI</div>
+            <div class="lab-opening-door"></div>
             <div class="lab-opening-bird-stage">
                 <div class="lab-opening-bird-glow"></div>
                 <div class="lab-opening-bird-particles"></div>
@@ -1516,7 +1636,7 @@ style="position:absolute;left:18%;bottom:0;width:64%;height:15%;background:trans
             }
             setTimeout(function() {
                 openingBird.classList.add('lab-opening-bird-hidden');
-            }, 1900);
+            }, 7200);
         }
 
         window.addEventListener('DOMContentLoaded', function() {
